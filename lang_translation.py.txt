@@ -1,0 +1,46 @@
+from translate import Translator
+import tkinter as tk
+from tkinter import StringVar
+
+def trans(lang, text):
+    translator = Translator(to_lang=lang)
+    translation = translator.translate(text)
+    return translation
+
+def display_input():
+    user_input = entry.get()
+    selected_lang = language_var.get()
+    translated_text = trans(selected_lang, user_input)
+    display_label.config(text=f"{translated_text}")
+
+root = tk.Tk()
+root.title("Input and Display")
+
+# Increase the window size
+root.geometry("400x300")
+
+# Create a StringVar for language selection
+language_var = StringVar(root)
+language_var.set("hi")  # Default value
+
+# Language options
+languages = ["hi", "es", "fr", "de"]  # Add more language codes as needed
+
+# Create and pack widgets
+label = tk.Label(root, text="Enter something:")
+label.pack(pady=10)
+
+entry = tk.Entry(root)
+entry.pack(pady=10)
+
+# Create a dropdown menu for language selection
+language_menu = tk.OptionMenu(root, language_var, *languages)
+language_menu.pack(pady=10)
+
+button = tk.Button(root, text="Translate", command=display_input)
+button.pack(pady=10)
+
+display_label = tk.Label(root, text="")
+display_label.pack(pady=10)
+
+root.mainloop()
